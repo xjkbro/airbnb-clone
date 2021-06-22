@@ -1,6 +1,6 @@
 import { sanityClient } from "../../sanity";
 import { isMultiple } from "../../utils";
-import ImageComp from "../../components/ImageComp";
+import Image from "../../components/Image";
 import Review from "../../components/Review";
 import Link from "next/link";
 import Map from "../../components/Map";
@@ -30,14 +30,10 @@ const Property = ({
                 {reviewAmount} review{isMultiple(reviewAmount)}
             </p>
             <div className="images-section">
-                <ImageComp identifier="main-image" image={mainImage} />
+                <Image identifier="main-image" image={mainImage} />
                 <div className="sub-images-section">
                     {images.map(({ _key, asset }, image) => (
-                        <ImageComp
-                            key={_key}
-                            identifier="image"
-                            image={asset}
-                        />
+                        <Image key={_key} identifier="image" image={asset} />
                     ))}
                 </div>
             </div>

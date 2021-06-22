@@ -1,6 +1,6 @@
 import { sanityClient, urlFor } from "../sanity";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "../components/Image";
 import { isMultiple } from "../utils";
 import DashboardMap from "../components/DashboardMap";
 
@@ -23,7 +23,7 @@ const Home = ({ properties }) => {
                                             key={property._id}
                                             className="card"
                                         >
-                                            <Image
+                                            <img
                                                 src={urlFor(property.mainImage)}
                                             />
                                             <p>
