@@ -44,6 +44,7 @@ const DashboardMap = ({ properties }) => {
         >
             {properties.map((property, index) => (
                 <Marker
+                    key={index}
                     position={{
                         lat: property?.location?.lat,
                         lng: property?.location?.lng,

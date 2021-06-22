@@ -1,6 +1,6 @@
 import { sanityClient } from "../../sanity";
 import { isMultiple } from "../../utils";
-import Image from "../../components/Image";
+import ImageComp from "../../components/ImageComp";
 import Review from "../../components/Review";
 import Link from "next/link";
 import Map from "../../components/Map";
@@ -30,10 +30,14 @@ const Property = ({
                 {reviewAmount} review{isMultiple(reviewAmount)}
             </p>
             <div className="images-section">
-                <Image identifier="main-image" image={mainImage} />
+                <ImageComp identifier="main-image" image={mainImage} />
                 <div className="sub-images-section">
                     {images.map(({ _key, asset }, image) => (
-                        <Image key={_key} identifier="image" image={asset} />
+                        <ImageComp
+                            key={_key}
+                            identifier="image"
+                            image={asset}
+                        />
                     ))}
                 </div>
             </div>
@@ -55,7 +59,7 @@ const Property = ({
                         <b>Enhanced Clean</b>
                     </h4>
                     <p>
-                        This host is committed to Airbnb's 5-step enhanced
+                        This host is committed to Airbnbs 5-step enhanced
                         cleaning process.
                     </p>
                     <h4>
@@ -69,7 +73,7 @@ const Property = ({
                         <b>House rules</b>
                     </h4>
                     <p>
-                        This place isn't suitable for pets andthe host does not
+                        This place isnt suitable for pets andthe host does not
                         allow parties or smoking.
                     </p>
                 </div>
@@ -78,7 +82,7 @@ const Property = ({
                     <h4>
                         {reviewAmount} review{isMultiple(reviewAmount)}
                     </h4>
-                    <Link href="/">
+                    <Link href="/" passHref>
                         <div className="button">Change Dates</div>
                     </Link>
                 </div>
