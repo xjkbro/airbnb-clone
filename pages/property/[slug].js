@@ -1,6 +1,9 @@
 import { sanityClient } from "../../sanity";
 import { isMultiple } from "../../utils";
-
+import Image from "../../components/Image";
+import Review from "../../components/Review";
+import Link from "next/link";
+import Map from "../../components/Map";
 const Property = ({
     title,
     location,
@@ -15,49 +18,90 @@ const Property = ({
     reviews,
 }) => {
     const reviewAmount = reviews.length;
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     return (
         <div className="container">
             <h1>
                 <b>{title}</b>
             </h1>
-            <h2>
-                <b>
-                    {propertyType} hosted by {host?.name}
-                </b>
-            </h2>
-            <h4>
-                {bedrooms} bedroom{isMultiple(bedrooms)} * {beds} bed
-                {isMultiple(beds)}
-            </h4>
-            <hr />
-            <h4>
-                <b>Enhanced Clean</b>
-            </h4>
             <p>
-                This host is committed to Airbnb's 5-step enhanced cleaning
-                process.
+                {reviewAmount} review{isMultiple(reviewAmount)}
             </p>
-            <h4>
-                <b>Amenities for everyday living</b>
-            </h4>
-            <p>
-                The host has equipped this place for long stays - kitchen,
-                shampoo, conditioner, hairdryer included.
-            </p>
-            <h4>
-                <b>House rules</b>
-            </h4>
-            <p>
-                This place isn't suitable for pets andthe host does not allow
-                parties or smoking.
-            </p>
-            <div className="price-box">
-                <h2>${pricePerNight}</h2>
-                <h4>{reviewAmount}</h4>
-                <div className="button" onClick={() => {}}>
-                    Change Dates
+            <div className="images-section">
+                <Image identifier="main-image" image={mainImage} />
+                <div className="sub-images-section">
+                    {images.map(({ _key, asset }, image) => (
+                        <Image key={_key} identifier="image" image={asset} />
+                    ))}
                 </div>
             </div>
+
+            <div className="section">
+                <div className="information">
+                    <h2>
+                        <b>
+                            {capitalizeFirstLetter(propertyType)} hosted by{" "}
+                            {host?.name}
+                        </b>
+                    </h2>
+                    <h4>
+                        {bedrooms} bedroom{isMultiple(bedrooms)} * {beds} bed
+                        {isMultiple(beds)}
+                    </h4>
+                    <hr />
+                    <h4>
+                        <b>Enhanced Clean</b>
+                    </h4>
+                    <p>
+                        This host is committed to Airbnb's 5-step enhanced
+                        cleaning process.
+                    </p>
+                    <h4>
+                        <b>Amenities for everyday living</b>
+                    </h4>
+                    <p>
+                        The host has equipped this place for long stays -
+                        kitchen, shampoo, conditioner, hairdryer included.
+                    </p>
+                    <h4>
+                        <b>House rules</b>
+                    </h4>
+                    <p>
+                        This place isn't suitable for pets andthe host does not
+                        allow parties or smoking.
+                    </p>
+                </div>
+                <div className="price-box">
+                    <h2>£{pricePerNight}</h2>
+                    <h4>
+                        {reviewAmount} review{isMultiple(reviewAmount)}
+                    </h4>
+                    <Link href="/">
+                        <div className="button">Change Dates</div>
+                    </Link>
+                </div>
+            </div>
+
+            <hr />
+
+            <h4>{description}</h4>
+
+            <hr />
+
+            <h2>
+                {reviewAmount} review{isMultiple(reviewAmount)}
+            </h2>
+            {reviewAmount > 0 &&
+                reviews.map((review) => (
+                    <Review key={review._key} review={review} />
+                ))}
+
+            <hr />
+
+            <h2>Location</h2>
+            <Map location={location}></Map>
         </div>
     );
 };
